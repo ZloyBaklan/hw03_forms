@@ -122,21 +122,21 @@ USE_TZ = True
 
 # произвольный URL, который используется для запросов к статическим файлам
 STATIC_URL = '/static/'
-# теперь логотип можно будет запросить 
+# теперь логотип можно будет запросить
 # по адресу sitename.ex**/static/**images/logo.png
 
-# задаём адрес директории, 
+# задаём адрес директории,
 # куда командой *collectstatic* будет собрана вся статика
-STATIC_ROOT = os.path.join(BASE_DIR, "static") 
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Login
 
 LOGIN_URL = "/auth/login/"
-LOGIN_REDIRECT_URL = "index" 
-#Направляем пользователя на главную после разлогина
+LOGIN_REDIRECT_URL = "index"
+# Направляем пользователя на главную после разлогина
 LOGOUT_REDIRECT_URL = "index"
 
-#  подключаем движок filebased.EmailBackend
+# подключаем движок filebased.EmailBackend
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 # указываем директорию, в которую будут складываться файлы писем
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")

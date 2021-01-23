@@ -16,14 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+'''
+Импорт правил из приложений posts, admin, users
+( Если правила в этом приложении не найдены, обращаемся к django.contrib...)
+'''
+
 urlpatterns = [
-    # импорт правил из приложения posts
     path("", include("posts.urls")),
-    # импорт правил из приложения admin
     path('admin/', admin.site.urls),
-    #  регистрация и авторизация
     path("auth/", include("users.urls")),
-    #  если нужного шаблона для /auth не нашлось в файле users.urls — 
-    #  ищем совпадения в файле django.contrib.auth.urls
     path("auth/", include("django.contrib.auth.urls")),
 ]
