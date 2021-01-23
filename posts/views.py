@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Group
 from .forms import PostForm
+from users.views import authorized_only
 
 
 def index(request):
@@ -19,6 +20,7 @@ def group_posts(request, slug):
     return render(request, "group.html", {"group": group, "posts": posts})
 
 
+@authorized_only
 def new_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
