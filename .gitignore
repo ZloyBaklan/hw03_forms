@@ -17,5 +17,6 @@ __pycache__/
 
 static/
 posts/static/
+.vscode
 
 db.sqlite3
