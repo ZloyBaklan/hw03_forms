@@ -11,7 +11,7 @@ class Group(models.Model):
     slug = models.SlugField(verbose_name="Ссылка", unique=True)
     description = models.TextField(verbose_name="Описание группы",
                                    max_length=300)
-                                   
+
     def __str__(self):
         return self.title
 
