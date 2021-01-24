@@ -3,13 +3,15 @@ from .validators import validate_not_empty
 
 
 '''
-Контакт, с проверкой на заполненность некоторых полей
+Визитка, с проверкой на заполненность некоторых полей
 '''
 
 
 class Contact(models.Model):
-    name = models.CharField(max_length=100, validators=[validate_not_empty])
-    email = models.EmailField()
-    subject = models.CharField(max_length=100)
-    body = models.TextField(validators=[validate_not_empty])
+    name = models.CharField(verbose_name="Ваше имя", max_length=100,
+                            validators=[validate_not_empty])
+    email = models.EmailField(verbose_name="Почта")
+    subject = models.CharField(verbose_name="Тема письма", max_length=100)
+    body = models.TextField(verbose_name="Текст письма",
+                            validators=[validate_not_empty])
     is_answered = models.BooleanField(default=False)

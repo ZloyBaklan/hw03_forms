@@ -6,7 +6,6 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ("pk", "text", "pub_date", "author",)
     search_fields = ("text",)
     list_filter = ("pub_date",)
-    '''Данное свойство сработает для всех пустых колонок:'''
     empty_value_display = "-пусто-"
 
 

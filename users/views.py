@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
-from .forms import CreationForm, ContactForm
 from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
+from .forms import CreationForm, ContactForm
 
 
 class SignUp(CreateView):
@@ -21,22 +22,15 @@ send_mail(
 
 
 '''
-Проверка авторизации, ограничение возможностей
-@authorized_only
+Проверка авторизации,
+в дальнейшем у каждого пользователя будет своя "визитная карточка".
 '''
 
-
-def authorized_only(func):
-    def check_user(request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return func(request, *args, **kwargs)
-        return redirect('/auth/login/')
-    return check_user
-
-
+@login_required
 def user_contact(request):
+    form = ContactForm()
     if request.method == 'POST':
-        form = ContactForm(request.POST)
+        form = ContactForm(request.POST or None)
         if form.is_valid():
             name = form.cleaned_data['name']
             email = form.cleaned_data['email']
@@ -44,8 +38,6 @@ def user_contact(request):
             message = form.cleaned_data['body']
             form.save()
             return redirect('thank-you')
-        return render(request, 'contact.html', {'form': form})
-    form = ContactForm()
     return render(request, 'contact.html', {'form': form})
 
 
