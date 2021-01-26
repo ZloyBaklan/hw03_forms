@@ -18,7 +18,7 @@ class CreationForm(UserCreationForm):
 
 
 '''
-Форма для связи(добавлено условие "вежливости")
+Форма для связи
 '''
 
 
@@ -26,9 +26,3 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
         fields = ('name', 'email', 'subject', 'body')
-
-    def clean_subject(self):
-        data = self.cleaned_data['subject']
-        if "спасибо" not in data.lower():
-            raise forms.ValidationError("Говорить спасибо - очень важно!")
-        return data

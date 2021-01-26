@@ -12,13 +12,14 @@ class SignUp(CreateView):
     template_name = "signup.html"
 
 
-send_mail(
-    'Тема письма',
-    'Текст письма.',
-    'from@example.com',
-    ['to@example.com'],
-    fail_silently=False,
-)
+def send_msg(email, name, subject, body):
+    sub = f"Письмо от {name} ({email})"
+    bod = f""" Тема письма: {subject}
+    Содержание:{body}
+    """
+    send_mail(
+        sub, bod, email, ["admin@mail.net", ],
+    )
 
 
 '''
@@ -26,16 +27,17 @@ send_mail(
 в дальнейшем у каждого пользователя будет своя "визитная карточка".
 '''
 
+
 @login_required
 def user_contact(request):
-    form = ContactForm()
+    form = ContactForm(request.POST or None)
     if request.method == 'POST':
-        form = ContactForm(request.POST or None)
         if form.is_valid():
             name = form.cleaned_data['name']
             email = form.cleaned_data['email']
             subject = form.cleaned_data['subject']
-            message = form.cleaned_data['body']
+            body = form.cleaned_data['body']
+            send_msg(email, name, subject, body)
             form.save()
             return redirect('thank-you')
     return render(request, 'contact.html', {'form': form})

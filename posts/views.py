@@ -5,7 +5,6 @@ from .forms import PostForm
 
 
 def index(request):
-    '''Сортировка по "свежести" постов'''
     latest = Post.objects.all()[:11]
     return render(request, "index.html", {"posts": latest})
 
@@ -18,9 +17,8 @@ def group_posts(request, slug):
 
 @login_required
 def new_post(request):
-    form = PostForm()
+    form = PostForm(request.POST or None)
     if request.method == 'POST':
-        form = PostForm(request.POST or None)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
